@@ -4,220 +4,467 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#080e20">
-<title>WALLZ Wallpapers</title>
+<meta name="theme-color" content="#080b18">
+<title>WALLIFY</title>
 
 <style>
+:root {
+  --bg:#080b18;
+  --glass:rgba(255,255,255,.09);
+  --border:rgba(255,255,255,.16);
+  --blue:#68a5ff;
+  --purple:#a78bfa;
+  --text:#f5f7ff;
+  --muted:#a8b0c8;
+}
 *{box-sizing:border-box}
 body{
- margin:0;padding:18px;color:white;
- font-family:Arial,sans-serif;
- background:radial-gradient(circle at top,#203c75,#090d1d 65%);
- min-height:100vh
+  margin:0;
+  color:var(--text);
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+  background:
+    radial-gradient(ellipse at top left,#17295a 0,transparent 45%),
+    radial-gradient(ellipse at top right,#35204f 0,transparent 38%),
+    var(--bg);
 }
-.glass{
- background:rgba(255,255,255,.09);
- border:1px solid rgba(255,255,255,.17);
- backdrop-filter:blur(25px);
- -webkit-backdrop-filter:blur(25px);
- border-radius:22px;
- box-shadow:0 12px 35px #0005
-}
-header{padding:18px;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:28px;font-weight:900;letter-spacing:3px}
-.logo span{color:#5bd5ff}
 button,input,select{font:inherit}
 button{
- color:white;background:#ffffff12;border:1px solid #ffffff25;
- padding:11px 14px;border-radius:13px;cursor:pointer
+  color:var(--text);
+  background:var(--glass);
+  border:1px solid var(--border);
+  padding:11px 15px;
+  border-radius:14px;
+  cursor:pointer;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
 }
-.primary{background:linear-gradient(120deg,#159eff,#835cff);border:0}
-.hero{padding:25px;margin-top:18px}
-h1{font-size:38px;margin:10px 0}
-p{color:#c1cce5;line-height:1.5}
-input,select{
- background:#0c1428;color:white;border:1px solid #ffffff25;
- border-radius:12px;padding:13px;width:100%;margin:6px 0
+button:hover{border-color:var(--blue)}
+header{
+  position:sticky;top:0;z-index:5;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;
+  padding:15px 5%;
+  background:rgba(8,11,24,.82);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(24px);
 }
-.filters{display:flex;gap:8px;overflow:auto;margin:18px 0}
-.filters button{white-space:nowrap}
-.filters .active{background:linear-gradient(120deg,#159eff,#835cff)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.wall{overflow:hidden}
-.wall img{width:100%;height:210px;object-fit:cover;display:block}
-.info{padding:12px}
-.info small{color:#bac6df}
-.actions{display:flex;gap:7px;margin-top:10px}
-.actions button{flex:1;padding:9px 5px}
-@media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.wall img{height:280px}}
-#updateBox{display:none;position:fixed;inset:0;background:#000b;z-index:10;align-items:center;justify-content:center;padding:20px}
-.dialog{max-width:380px;width:100%;padding:24px}
-#toast{position:fixed;bottom:15px;left:5%;width:90%;text-align:center;padding:12px;background:#172440;border-radius:12px;display:none}
+.logo{
+  font-size:27px;font-weight:900;letter-spacing:3px;
+  background:linear-gradient(100deg,#fff,var(--blue),var(--purple));
+  -webkit-background-clip:text;color:transparent;
+}
+main{max-width:1400px;margin:auto;padding:25px 5%}
+.hero{padding:35px 0 24px}
+.hero h1{font-size:clamp(34px,7vw,60px);margin:0 0 12px;letter-spacing:-2px}
+.hero h1 span{
+  background:linear-gradient(100deg,var(--blue),var(--purple));
+  -webkit-background-clip:text;color:transparent;
+}
+.hero p{color:var(--muted);line-height:1.6}
+.search{
+  width:100%;padding:16px 18px;margin:12px 0 18px;
+  border:1px solid var(--border);border-radius:18px;
+  outline:none;background:rgba(255,255,255,.07);color:white;
+}
+.search:focus{border-color:var(--blue)}
+.categories{
+  display:flex;gap:9px;overflow-x:auto;padding:4px 0 18px;
+}
+.categories button{white-space:nowrap}
+.categories button.active{
+  background:linear-gradient(110deg,#397fe8,#8062dd);
+  border-color:transparent;
+}
+.section-heading{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;flex-wrap:wrap;margin:12px 0 18px;
+}
+.section-heading h2{margin:0}
+.wallpaper-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:16px;
+}
+.wallpaper-card{
+  overflow:hidden;border:1px solid var(--border);
+  background:rgba(255,255,255,.055);border-radius:19px;
+  backdrop-filter:blur(16px);transition:transform .2s,border-color .2s;
+}
+.wallpaper-card:hover{transform:translateY(-4px);border-color:var(--blue)}
+.wallpaper-card img{
+  display:block;width:100%;aspect-ratio:9/16;
+  object-fit:cover;background:#161b30;
+}
+.card-info{padding:11px}
+.card-info h3{font-size:14px;margin:0 0 9px;overflow-wrap:anywhere}
+.card-actions{display:flex;gap:7px}
+.card-actions button{padding:9px 6px;flex:1;font-size:12px}
+.download-btn{background:linear-gradient(110deg,#347de8,#785ce0);border:0}
+.empty{display:none;text-align:center;padding:35px 10px;color:var(--muted)}
+footer{text-align:center;color:var(--muted);padding:35px 15px;font-size:13px}
+.modal-backdrop{
+  position:fixed;inset:0;z-index:20;display:none;
+  align-items:center;justify-content:center;padding:20px;
+  background:rgba(0,0,0,.7);backdrop-filter:blur(12px);
+}
+.modal{
+  width:min(420px,100%);padding:24px;
+  border:1px solid var(--border);border-radius:25px;
+  background:rgba(20,25,48,.97);box-shadow:0 20px 80px #0008;
+}
+.modal h2{margin-top:0}
+.modal p{color:var(--muted);line-height:1.5}
+.modal-actions{display:flex;gap:10px;margin-top:20px}
+.modal-actions button{flex:1}
+.primary{background:linear-gradient(110deg,#347de8,#785ce0);border:0}
+.form-field{
+  display:block;width:100%;margin:12px 0;padding:13px;
+  border-radius:12px;border:1px solid var(--border);
+  background:#11162b;color:white;
+}
+.notice{color:var(--muted);font-size:12px;line-height:1.5}
+@media(min-width:850px){
+  .wallpaper-grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+}
 </style>
 </head>
-<body>
 
-<header class="glass">
- <div class="logo">WALL<span>Z</span></div>
- <button class="primary" onclick="document.getElementById('upload').click()">＋ Add</button>
+<body>
+<header>
+  <div class="logo">WALLIFY</div>
+  <button onclick="openUpload()">＋ Upload wallpaper</button>
 </header>
 
-<section class="hero glass">
- <small style="color:#72d8ff;letter-spacing:2px">YOUR SCREEN. YOUR STYLE.</small>
- <h1>Find your next wallpaper.</h1>
- <p>Discover wallpapers for your phone and save your favourites.</p>
- <input id="search" placeholder="Search wallpapers..." oninput="render()">
- <input id="upload" type="file" accept="image/*" hidden onchange="addWallpaper(event)">
-</section>
+<main>
+  <section class="hero">
+    <h1>Your screen.<br><span>Your style.</span></h1>
+    <p>Discover wallpapers that make your phone yours.</p>
+  </section>
 
-<nav class="filters" id="filters"></nav>
-<h2 id="heading">Explore wallpapers</h2>
-<div id="grid" class="grid"></div>
+  <input id="search" class="search" type="search"
+    placeholder="🔎 Search wallpapers..."
+    oninput="renderWallpapers()" aria-label="Search wallpapers">
 
-<div id="updateBox">
- <div class="dialog glass">
-  <h2>✨ WALLZ Update</h2>
-  <p id="updateMessage">A new version is ready!</p>
-  <button onclick="document.getElementById('updateBox').style.display='none'">Later</button>
-  <button class="primary" onclick="applyUpdate()">Update now</button>
- </div>
+  <nav class="categories" id="categories" aria-label="Wallpaper categories"></nav>
+
+  <div class="section-heading">
+    <h2 id="sectionTitle">Explore wallpapers</h2>
+    <span id="wallpaperCount" class="notice"></span>
+  </div>
+
+  <section id="wallpaperGrid" class="wallpaper-grid"></section>
+  <div id="empty" class="empty">No wallpapers found. Try another search or category.</div>
+</main>
+
+<footer>WALLIFY · Make your screen yours ✦</footer>
+
+<div id="uploadModal" class="modal-backdrop">
+  <div class="modal">
+    <h2>Upload wallpaper</h2>
+    <p>Choose an image from your phone to add to your personal collection.</p>
+    <input id="imageFile" class="form-field" type="file" accept="image/*">
+    <input id="imageTitle" class="form-field" type="text" placeholder="Wallpaper name">
+    <select id="imageCategory" class="form-field">
+      <option>Anime</option>
+      <option>Gaming</option>
+      <option>Cars</option>
+      <option>Nature</option>
+      <option>LIQUID GLASS</option>
+    </select>
+    <p class="notice">Personal uploads are saved on this device, not shared automatically.</p>
+    <div class="modal-actions">
+      <button onclick="closeUpload()">Cancel</button>
+      <button class="primary" onclick="saveUpload()">Add wallpaper</button>
+    </div>
+  </div>
 </div>
-<div id="toast"></div>
+
+<div id="updateModal" class="modal-backdrop">
+  <div class="modal">
+    <h2>✨ WALLIFY update</h2>
+    <p id="updateMessage">A new version is available.</p>
+    <div class="modal-actions">
+      <button onclick="closeUpdate()">Later</button>
+      <button class="primary" onclick="applyUpdate()">Update now</button>
+    </div>
+  </div>
+</div>
 
 <script>
-const categories=['All','Anime','Gaming','Cars','Nature','My uploads'];
-
-const starter=[
- {id:'1',title:'Mountain Escape',category:'Nature',image:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=80'},
- {id:'2',title:'Blue Ocean',category:'Nature',image:'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=700&q=80'},
- {id:'3',title:'Dream Car',category:'Cars',image:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=700&q=80'},
- {id:'4',title:'Space Galaxy',category:'Gaming',image:'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=700&q=80'},
- {id:'5',title:'Forest',category:'Nature',image:'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=700&q=80'},
- {id:'6',title:'Night City',category:'Gaming',image:'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=80'}
+const categories = [
+  "All","Anime","Gaming","Cars","Nature","LIQUID GLASS","My uploads"
 ];
 
-let selected='All';
-let uploads=loadUploads();
+const starterWallpapers = [
+  {
+    id:"anime1",title:"Anime Night",category:"Anime",
+    image:"https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=700&q=85"
+  },
+  {
+    id:"gaming1",title:"Gaming Setup",category:"Gaming",
+    image:"https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&w=700&q=85"
+  },
+  {
+    id:"cars1",title:"Midnight Drive",category:"Cars",
+    image:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=700&q=85"
+  },
+  {
+    id:"nature1",title:"Mountain Escape",category:"Nature",
+    image:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=85"
+  },
+  {
+    id:"nature2",title:"Ocean Blue",category:"Nature",
+    image:"https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=700&q=85"
+  },
+  {
+    id:"anime2",title:"Neon City",category:"Anime",
+    image:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=85"
+  },
+  {
+    id:"glass1",title:"Liquid Glass Blue",category:"LIQUID GLASS",
+    image:"https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=700&q=85"
+  },
+  {
+    id:"glass2",title:"Purple Glass",category:"LIQUID GLASS",
+    image:"https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=700&q=85"
+  },
+  {
+    id:"glass3",title:"Abstract Glass",category:"LIQUID GLASS",
+    image:"https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=700&q=85"
+  }
+];
+
+let activeCategory = "All";
+let userWallpapers = loadUploads();
 
 function loadUploads(){
- try{return JSON.parse(localStorage.getItem('wallz_uploads')||'[]')}
- catch(e){return []}
+  try{return JSON.parse(localStorage.getItem("wallifyUploads") || "[]")}
+  catch(e){return []}
 }
-function saveUploads(){
- try{
-  localStorage.setItem('wallz_uploads',JSON.stringify(uploads));
-  return true;
- }catch(e){
-  notify('Storage full. Try a smaller image.');
-  return false;
- }
-}
-function esc(s){
- return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-function notify(message){
- const t=document.getElementById('toast');
- t.textContent=message;t.style.display='block';
- clearTimeout(window.toastTimer);
- window.toastTimer=setTimeout(()=>t.style.display='none',2600);
-}
-function allWalls(){return [...starter,...uploads]}
-function renderFilters(){
- const f=document.getElementById('filters');
- f.innerHTML=categories.map(c=>
-  `<button class="${c===selected?'active':''}" onclick="chooseCategory('${c}')">${c}</button>`
- ).join('');
-}
-function chooseCategory(c){selected=c;renderFilters();render()}
-function render(){
- const q=document.getElementById('search').value.toLowerCase();
- const list=allWalls().filter(w=>
-  (selected==='All'||(selected==='My uploads'?w.own:w.category===selected))&&
-  (w.title+' '+w.category).toLowerCase().includes(q)
- );
- document.getElementById('heading').textContent=selected==='All'?'Explore wallpapers':selected;
- const grid=document.getElementById('grid');
- if(!list.length){grid.innerHTML='<p>No wallpapers found.</p>';return}
- grid.innerHTML=list.map(w=>`
-  <article class="wall glass">
-   <img loading="lazy" src="${esc(w.image)}" alt="${esc(w.title)}">
-   <div class="info">
-    <strong>${esc(w.title)}</strong><br>
-    <small>${esc(w.category)}</small>
-    <div class="actions">
-     <button class="primary" onclick="downloadWall('${w.id}')">↓ Save</button>
-     ${w.own?`<button onclick="deleteWall('${w.id}')">Delete</button>`:''}
-    </div>
-   </div>
-  </article>`).join('');
-}
-async function downloadWall(id){
- const w=allWalls().find(x=>x.id===id);
- if(!w)return;
- try{
-  const r=await fetch(w.image);
-  if(!r.ok)throw Error('Fetch failed');
-  const blob=await r.blob();
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;a.download=(w.title||'WALLZ').replace(/[^\w-]/g,'_')+'.jpg';
-  document.body.appendChild(a);a.click();a.remove();
-  setTimeout(()=>URL.revokeObjectURL(url),10000);
-  notify('Download started!');
- }catch(e){
-  notify('Opening image. Use the image menu to save it.');
-  window.open(w.image,'_blank');
- }
-}
-function addWallpaper(event){
- const file=event.target.files[0];
- if(!file)return;
- if(!file.type.startsWith('image/')){notify('Choose an image.');return}
- if(file.size>3*1024*1024){notify('Choose an image under 3 MB.');return}
- const reader=new FileReader();
- reader.onload=()=>{
-  const title=prompt('Wallpaper name?',file.name.replace(/\.[^.]+$/,''))||file.name;
-  uploads.unshift({
-   id:'u'+Date.now(),title,category:prompt('Category: Anime, Gaming, Cars, Nature or Other','Other')||'Other',
-   image:reader.result,own:true
-  });
-  if(saveUploads()){selected='My uploads';renderFilters();render();notify('Wallpaper added!')}
- };
- reader.readAsDataURL(file);event.target.value='';
-}
-function deleteWall(id){
- if(!confirm('Delete this wallpaper?'))return;
- uploads=uploads.filter(w=>w.id!==id);
- if(saveUploads())render();
-}
-renderFilters();render();
 
-/* UPDATE CHECK:
-   Change version.json on GitHub whenever you publish an update. */
-let latestVersion='';
-async function checkUpdate(){
- try{
-  const r=await fetch('./version.json?t='+Date.now(),{cache:'no-store'});
-  if(!r.ok)return;
-  const data=await r.json();
-  if(!data.version)return;
-  const seen=localStorage.getItem('wallz_version');
-  if(!seen){localStorage.setItem('wallz_version',data.version);return}
-  if(seen!==data.version){
-   latestVersion=data.version;
-   document.getElementById('updateMessage').textContent=
-    data.message||'A new WALLZ update is ready.';
-   document.getElementById('updateBox').style.display='flex';
+function saveUploads(){
+  try{
+    localStorage.setItem("wallifyUploads",JSON.stringify(userWallpapers));
+    return true;
+  }catch(e){
+    alert("Storage is full. Try a smaller image.");
+    return false;
   }
- }catch(e){}
 }
+
+function allWallpapers(){
+  return [...starterWallpapers,...userWallpapers];
+}
+
+function renderCategories(){
+  const nav=document.getElementById("categories");
+  nav.innerHTML="";
+
+  categories.forEach(category=>{
+    const button=document.createElement("button");
+    button.textContent=category;
+    button.className=activeCategory===category?"active":"";
+    button.onclick=()=>{
+      activeCategory=category;
+      renderCategories();
+      renderWallpapers();
+    };
+    nav.appendChild(button);
+  });
+}
+
+function renderWallpapers(){
+  const grid=document.getElementById("wallpaperGrid");
+  const query=document.getElementById("search").value.toLowerCase().trim();
+  let items=allWallpapers();
+
+  if(activeCategory==="My uploads"){
+    items=userWallpapers;
+  }else if(activeCategory!=="All"){
+    items=items.filter(item=>item.category===activeCategory);
+  }
+
+  items=items.filter(item=>
+    item.title.toLowerCase().includes(query) ||
+    item.category.toLowerCase().includes(query)
+  );
+
+  grid.innerHTML="";
+
+  items.forEach(item=>{
+    const card=document.createElement("article");
+    card.className="wallpaper-card";
+
+    const img=document.createElement("img");
+    img.src=item.image;
+    img.alt=item.title;
+    img.loading="lazy";
+
+    const info=document.createElement("div");
+    info.className="card-info";
+
+    const title=document.createElement("h3");
+    title.textContent=item.title;
+
+    const actions=document.createElement("div");
+    actions.className="card-actions";
+
+    const download=document.createElement("button");
+    download.textContent="↓ Download";
+    download.className="download-btn";
+    download.onclick=()=>downloadWallpaper(item);
+    actions.appendChild(download);
+
+    if(item.userUpload){
+      const remove=document.createElement("button");
+      remove.textContent="Delete";
+      remove.onclick=()=>deleteWallpaper(item.id);
+      actions.appendChild(remove);
+    }
+
+    info.appendChild(title);
+    info.appendChild(actions);
+    card.appendChild(img);
+    card.appendChild(info);
+    grid.appendChild(card);
+  });
+
+  document.getElementById("wallpaperCount").textContent=
+    items.length+(items.length===1?" wallpaper":" wallpapers");
+
+  document.getElementById("sectionTitle").textContent=
+    activeCategory==="All"?"Explore wallpapers":activeCategory;
+
+  document.getElementById("empty").style.display=items.length?"none":"block";
+}
+
+async function downloadWallpaper(item){
+  try{
+    const response=await fetch(item.image);
+    if(!response.ok)throw new Error("Download failed");
+
+    const blob=await response.blob();
+    const url=URL.createObjectURL(blob);
+    const link=document.createElement("a");
+
+    link.href=url;
+    link.download=safeFilename(item.title)+".jpg";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(()=>URL.revokeObjectURL(url),2000);
+  }catch(e){
+    const newTab=window.open(item.image,"_blank");
+    if(!newTab){
+      alert("The download was blocked. Open this app in Chrome, then open the image and save it.");
+    }else{
+      alert("If the image opens, use your browser menu or long-press it to save.");
+    }
+  }
+}
+
+function safeFilename(value){
+  return value.replace(/[^a-z0-9-_]/gi,"_").slice(0,60)||"wallpaper";
+}
+
+function openUpload(){
+  document.getElementById("uploadModal").style.display="flex";
+}
+function closeUpload(){
+  document.getElementById("uploadModal").style.display="none";
+}
+
+function saveUpload(){
+  const file=document.getElementById("imageFile").files[0];
+  const titleInput=document.getElementById("imageTitle").value.trim();
+  const category=document.getElementById("imageCategory").value;
+
+  if(!file){alert("Please choose an image first.");return}
+  if(!file.type.startsWith("image/")){alert("Choose a valid image.");return}
+  if(file.size>2*1024*1024){
+    alert("Choose an image smaller than 2 MB for local storage.");
+    return;
+  }
+
+  const reader=new FileReader();
+  reader.onload=()=>{
+    const item={
+      id:"upload_"+Date.now(),
+      title:titleInput||file.name.replace(/\.[^/.]+$/,""),
+      category:category,
+      image:reader.result,
+      userUpload:true
+    };
+
+    userWallpapers.unshift(item);
+    if(!saveUploads()){
+      userWallpapers.shift();
+      return;
+    }
+
+    closeUpload();
+    document.getElementById("imageFile").value="";
+    document.getElementById("imageTitle").value="";
+    activeCategory="My uploads";
+    renderCategories();
+    renderWallpapers();
+    alert("Wallpaper added!");
+  };
+  reader.onerror=()=>alert("Could not read that image. Try another.");
+  reader.readAsDataURL(file);
+}
+
+function deleteWallpaper(id){
+  if(!confirm("Delete this uploaded wallpaper?"))return;
+  const previous=userWallpapers;
+  userWallpapers=userWallpapers.filter(item=>item.id!==id);
+  if(!saveUploads())userWallpapers=previous;
+  renderWallpapers();
+}
+
+function closeUpdate(){
+  document.getElementById("updateModal").style.display="none";
+}
+
 function applyUpdate(){
- if(latestVersion)localStorage.setItem('wallz_version',latestVersion);
- const u=new URL(location.href);u.searchParams.set('refresh',Date.now());
- location.replace(u.href);
+  window.location.replace(
+    window.location.pathname+"?updated="+Date.now()
+  );
 }
-setTimeout(checkUpdate,2000);
-setInterval(checkUpdate,60000);
+
+async function checkForUpdates(){
+  try{
+    const response=await fetch("./version.json?check="+Date.now(),{
+      cache:"no-store"
+    });
+    if(!response.ok)return;
+
+    const data=await response.json();
+    if(!data.version)return;
+
+    const latest=String(data.version);
+    const saved=localStorage.getItem("wallifyVersion");
+
+    if(!saved){
+      localStorage.setItem("wallifyVersion",latest);
+      return;
+    }
+
+    if(saved!==latest){
+      document.getElementById("updateMessage").textContent=
+        data.message||"A new WALLIFY update is ready.";
+      document.getElementById("updateModal").style.display="flex";
+      localStorage.setItem("wallifyVersion",latest);
+    }
+  }catch(e){
+    // The app remains usable when offline or version.json is unavailable.
+  }
+}
+
+renderCategories();
+renderWallpapers();
+checkForUpdates();
+setInterval(checkForUpdates,60000);
 </script>
 </body>
 </html>
