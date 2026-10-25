@@ -4,295 +4,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b0d14">
 <title>WALLZ - Wallpapers</title>
-
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #0b0d14;
-  color: white;
-  font-family: Arial, sans-serif;
-}
-
-header {
-  padding: 22px 16px;
-  background: linear-gradient(135deg, #17213a, #101522);
-  border-bottom: 1px solid #283651;
-}
-
-h1 {
-  color: #75a7ff;
-  margin: 0 0 8px;
-  font-size: 30px;
-}
-
-header p {
-  color: #c4cce0;
-  margin: 0;
-}
-
-main {
-  padding: 14px;
-  max-width: 1000px;
-  margin: auto;
-}
-
-#search {
-  width: 100%;
-  padding: 13px;
-  border-radius: 12px;
-  border: 1px solid #39435b;
-  background: #1a2030;
-  color: white;
-  font-size: 16px;
-}
-
-#categories {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding: 15px 0 8px;
-}
-
-#categories button {
-  flex-shrink: 0;
-  padding: 10px 14px;
-  border: 1px solid #39435b;
-  border-radius: 22px;
-  background: #191f30;
-  color: white;
-  font-size: 14px;
-}
-
-#categories button.active {
-  background: #397bff;
-  border-color: #397bff;
-}
-
-#gallery {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 12px;
-}
-
-.card {
-  background: #191f30;
-  padding: 8px;
-  border: 1px solid #29344b;
-  border-radius: 14px;
-  min-width: 0;
-}
-
-.card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 9px;
-  display: block;
-  background: #252c3b;
-}
-
-.card p {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 11px 2px;
-}
-
-.download {
-  display: block;
-  width: 100%;
-  padding: 11px 4px;
-  background: #397bff;
-  color: white;
-  border: none;
-  border-radius: 9px;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-}
-
-.download:active {
-  background: #245ac7;
-}
-
-#message {
-  color: #b9c7e6;
-  text-align: center;
-  padding: 20px 0;
-  font-size: 14px;
-}
-
-footer {
-  text-align: center;
-  color: #8b96ad;
-  padding: 25px 10px;
-  font-size: 12px;
-}
-
-@media (min-width: 650px) {
-  #gallery {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
+*{box-sizing:border-box}
+body{margin:0;background:#0b1020;color:white;font-family:Arial,sans-serif}
+header{padding:24px 16px;text-align:center;background:#141c32}
+h1{margin:0;color:#62a5ff;font-size:36px}
+header p{color:#bdc9df}
+main{max-width:1000px;margin:auto;padding:16px}
+input,select,button{padding:12px;border:0;border-radius:10px;font-size:15px}
+input,select{background:#202b43;color:white;width:100%;margin:5px 0 12px}
+button{cursor:pointer;background:#3985ff;color:white;font-weight:bold}
+.tools,.upload{background:#141c32;padding:15px;border-radius:15px;margin-bottom:16px}
+.categories{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.categories button{background:#263550}
+.categories button.active{background:#3985ff}
+.upload label{display:block;margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:14px}
+.card{background:#141c32;border-radius:14px;overflow:hidden}
+.card img{width:100%;height:220px;object-fit:cover;display:block}
+.card h3{font-size:15px;margin:10px}
+.actions{display:flex;gap:6px;padding:0 8px 10px}
+.actions button{flex:1;padding:9px 5px;font-size:13px}
+.delete{background:#d94455}
+.note{color:#bdc9df;font-size:13px;line-height:1.5}
 </style>
 </head>
-
 <body>
 <header>
-  <h1>WALLZ ✦</h1>
-  <p>Find your next favourite wallpaper.</p>
+<h1>WALLZ</h1>
+<p>Find your next wallpaper</p>
 </header>
-
 <main>
-  <input
-    id="search"
-    type="search"
-    placeholder="🔍 Search wallpapers..."
-    aria-label="Search wallpapers"
-  >
+<section class="tools">
+<input id="search" placeholder="Search wallpapers..." />
+<div class="categories" id="categories">
+<button class="active" data-cat="All">All</button>
+<button data-cat="Anime">Anime</button>
+<button data-cat="Gaming">Gaming</button>
+<button data-cat="Cars">Cars</button>
+<button data-cat="Nature">Nature</button>
+</div>
+</section>
 
-  <div id="categories"></div>
-  <div id="gallery"></div>
-  <div id="message" role="status"></div>
+<section class="upload">
+<h2>＋ Add a wallpaper</h2>
+<p class="note">Choose a picture from your Gallery, give it a name and select a category.</p>
+<label for="photo">Choose picture</label>
+<input id="photo" type="file" accept="image/*">
+<label for="title">Wallpaper name</label>
+<input id="title" placeholder="Enter a name">
+<label for="category">Category</label>
+<select id="category">
+<option>Anime</option><option>Gaming</option>
+<option>Cars</option><option>Nature</option>
+</select>
+<button id="add">Add wallpaper</button>
+<p class="note" id="message">Your added pictures are saved in this browser only.</p>
+</section>
+
+<div class="grid" id="gallery"></div>
 </main>
-
-<footer>WALLZ ✦ Make your screen yours.</footer>
-
 <script>
-const wallpapers = [
-  { name: "Anime Art", cat: "Anime", id: "photo-1578632767115-351597cf2477" },
-  { name: "Anime Style", cat: "Anime", id: "photo-1614583225154-5fc4b6fb7e90" },
-  { name: "Gaming Setup", cat: "Gaming", id: "photo-1542751371-adc38448a05e" },
-  { name: "Gaming Lights", cat: "Gaming", id: "photo-1593305841991-05c297ba4575" },
-  { name: "Sports Car", cat: "Cars", id: "photo-1503376780353-7e6692767b70" },
-  { name: "Supercar", cat: "Cars", id: "photo-1492144534655-ae79c964c9d7" },
-  { name: "Blue Mountains", cat: "Nature", id: "photo-1500530855697-b586d89ba3ee" },
-  { name: "Space", cat: "Nature", id: "photo-1446776811953-b23d57bd21aa" },
-  { name: "Ocean", cat: "Nature", id: "photo-1518837695005-2083093ee35b" },
-  { name: "Night Sky", cat: "Nature", id: "photo-1475274047050-1d0c0975c63e" },
-  { name: "Forest", cat: "Nature", id: "photo-1448375240586-882707db888b" },
-  { name: "Mountains", cat: "Nature", id: "photo-1464822759023-fed622ff2c3b" }
+const starter = [
+{title:"Anime wallpaper",category:"Anime",url:"https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80"},
+{title:"Gaming setup",category:"Gaming",url:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80"},
+{title:"Sports car",category:"Cars",url:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80"},
+{title:"Mountain nature",category:"Nature",url:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80"}
 ];
+let chosen = "All";
+let custom = [];
+const gallery = document.getElementById("gallery");
+const search = document.getElementById("search");
+const message = document.getElementById("message");
 
-const categories = ["All", "Anime", "Gaming", "Cars", "Nature"];
-let selected = "All";
-
-function imageURL(wallpaper) {
-  return "https://images.unsplash.com/" + wallpaper.id +
-    "?auto=format&fit=crop&w=1000&q=90";
+function render(){
+ gallery.innerHTML="";
+ const list=[...starter,...custom].filter(w=>
+ (chosen==="All"||w.category===chosen)&&
+ w.title.toLowerCase().includes(search.value.toLowerCase())
+ );
+ if(!list.length){gallery.textContent="No wallpapers found.";return}
+ list.forEach((w,index)=>{
+  const card=document.createElement("article");
+  card.className="card";
+  const img=document.createElement("img");
+  img.src=w.url;img.alt=w.title;img.loading="lazy";
+  const name=document.createElement("h3");name.textContent=w.title;
+  const actions=document.createElement("div");actions.className="actions";
+  const download=document.createElement("button");
+  download.textContent="Download";
+  download.onclick=()=>{
+   const a=document.createElement("a");
+   a.href=w.url;a.download=w.title.replace(/[^a-z0-9]/gi,"-")+".jpg";
+   a.target="_blank";a.rel="noopener";
+   document.body.appendChild(a);a.click();a.remove();
+  };
+  actions.appendChild(download);
+  if(w.custom){
+   const del=document.createElement("button");
+   del.textContent="Delete";del.className="delete";
+   del.onclick=()=>{custom.splice(custom.indexOf(w),1);save();render()};
+   actions.appendChild(del);
+  }
+  card.append(img,name,actions);gallery.appendChild(card);
+ });
 }
-
-function makeCategories() {
-  const container = document.getElementById("categories");
-  container.innerHTML = "";
-
-  categories.forEach(cat => {
-    const button = document.createElement("button");
-    button.textContent = (cat === "All" ? "✨ " : "") + cat;
-    button.className = selected === cat ? "active" : "";
-    button.setAttribute("aria-pressed", selected === cat);
-
-    button.addEventListener("click", () => {
-      selected = cat;
-      makeCategories();
-      render();
-    });
-
-    container.appendChild(button);
-  });
+function save(){
+ try{localStorage.setItem("wallzCustom",JSON.stringify(custom))}
+ catch(e){message.textContent="Storage is full. Remove a large picture and try again."}
 }
+try{custom=JSON.parse(localStorage.getItem("wallzCustom")||"[]")}
+catch(e){custom=[]}
 
-function render() {
-  const term = document.getElementById("search").value
-    .trim().toLowerCase();
+document.getElementById("categories").addEventListener("click",e=>{
+ if(e.target.tagName!=="BUTTON")return;
+ chosen=e.target.dataset.cat;
+ document.querySelectorAll(".categories button").forEach(b=>b.classList.toggle("active",b===e.target));
+ render();
+});
+search.addEventListener("input",render);
 
-  const shown = wallpapers.filter(w =>
-    (selected === "All" || w.cat === selected) &&
-    (w.name.toLowerCase().includes(term) ||
-     w.cat.toLowerCase().includes(term))
-  );
-
-  const gallery = document.getElementById("gallery");
-  gallery.innerHTML = "";
-
-  document.getElementById("message").textContent =
-    shown.length ? "" : "No wallpapers found. Try another search.";
-
-  shown.forEach(w => {
-    const url = imageURL(w);
-    const card = document.createElement("div");
-    card.className = "card";
-
-    const img = document.createElement("img");
-    img.src = url;
-    img.alt = w.name;
-    img.loading = "lazy";
-
-    img.addEventListener("error", () => {
-      img.alt = w.name + " - image could not load";
-    });
-
-    const title = document.createElement("p");
-    title.textContent = w.name;
-
-    const link = document.createElement("a");
-    link.className = "download";
-    link.href = url;
-    link.textContent = "⬇ Download";
-    link.target = "_blank";
-    link.rel = "noopener";
-
-    link.addEventListener("click", async event => {
-      event.preventDefault();
-      link.textContent = "Preparing download...";
-
-      try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("Image unavailable");
-
-        const blob = await response.blob();
-        const objectURL = URL.createObjectURL(blob);
-        const downloadLink = document.createElement("a");
-
-        downloadLink.href = objectURL;
-        downloadLink.download =
-          w.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") + ".jpg";
-
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        downloadLink.remove();
-
-        setTimeout(() => URL.revokeObjectURL(objectURL), 60000);
-        link.textContent = "⬇ Download";
-      } catch (error) {
-        link.textContent = "Open image to save";
-        window.open(url, "_blank", "noopener");
-
-        link.onclick = null;
-        link.addEventListener("click", e => {
-          e.preventDefault();
-          window.open(url, "_blank", "noopener");
-        });
-      }
-    });
-
-    card.appendChild(img);
-    card.appendChild(title);
-    card.appendChild(link);
-    gallery.appendChild(card);
-  });
-}
-
-document.getElementById("search").addEventListener("input", render);
-
-makeCategories();
+document.getElementById("add").onclick=()=>{
+ const file=document.getElementById("photo").files[0];
+ const title=document.getElementById("title").value.trim();
+ const category=document.getElementById("category").value;
+ if(!file||!title){message.textContent="Choose a picture and enter a name first.";return}
+ if(!file.type.startsWith("image/")){message.textContent="Please choose an image.";return}
+ if(file.size>2*1024*1024){message.textContent="Please choose an image smaller than 2 MB.";return}
+ const reader=new FileReader();
+ reader.onload=()=>{
+  custom.push({title,category,url:reader.result,custom:true});
+  save();render();
+  document.getElementById("photo").value="";
+  document.getElementById("title").value="";
+  message.textContent="Wallpaper added on this browser!";
+ };
+ reader.readAsDataURL(file);
+};
 render();
 </script>
 </body>
