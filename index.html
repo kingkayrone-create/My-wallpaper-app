@@ -5,609 +5,219 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080e20">
-<title>WALLZ — Liquid Glass</title>
+<title>WALLZ Wallpapers</title>
 
 <style>
-:root {
-  --blue: #62b5ff;
-  --border: rgba(255,255,255,.17);
+*{box-sizing:border-box}
+body{
+ margin:0;padding:18px;color:white;
+ font-family:Arial,sans-serif;
+ background:radial-gradient(circle at top,#203c75,#090d1d 65%);
+ min-height:100vh
 }
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  color: white;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-  background:
-    radial-gradient(ellipse at 10% 5%, #173c70, transparent 38%),
-    radial-gradient(ellipse at 95% 30%, #32245f, transparent 35%),
-    #080e20;
-  background-attachment: fixed;
+.glass{
+ background:rgba(255,255,255,.09);
+ border:1px solid rgba(255,255,255,.17);
+ backdrop-filter:blur(25px);
+ -webkit-backdrop-filter:blur(25px);
+ border-radius:22px;
+ box-shadow:0 12px 35px #0005
 }
-
-header {
-  text-align: center;
-  padding: 35px 16px 24px;
+header{padding:18px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:28px;font-weight:900;letter-spacing:3px}
+.logo span{color:#5bd5ff}
+button,input,select{font:inherit}
+button{
+ color:white;background:#ffffff12;border:1px solid #ffffff25;
+ padding:11px 14px;border-radius:13px;cursor:pointer
 }
-
-.logo {
-  margin: 0;
-  font-size: 55px;
-  font-weight: 900;
-  letter-spacing: 5px;
-  text-shadow: 0 0 24px rgba(85,170,255,.75);
+.primary{background:linear-gradient(120deg,#159eff,#835cff);border:0}
+.hero{padding:25px;margin-top:18px}
+h1{font-size:38px;margin:10px 0}
+p{color:#c1cce5;line-height:1.5}
+input,select{
+ background:#0c1428;color:white;border:1px solid #ffffff25;
+ border-radius:12px;padding:13px;width:100%;margin:6px 0
 }
-
-.logo span { color: var(--blue); }
-
-header p { color: #c5d8f6; }
-
-main {
-  max-width: 1100px;
-  margin: auto;
-  padding: 14px;
-}
-
-.glass {
-  background: linear-gradient(135deg,
-    rgba(255,255,255,.13),
-    rgba(255,255,255,.035) 55%,
-    rgba(112,168,255,.07));
-  border: 1px solid var(--border);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,.13),
-    0 12px 35px rgba(0,0,0,.2);
-  -webkit-backdrop-filter: blur(22px) saturate(160%);
-  backdrop-filter: blur(22px) saturate(160%);
-  border-radius: 23px;
-}
-
-.tools, .upload { padding: 18px; margin-bottom: 18px; }
-
-input, select, button { font: inherit; }
-
-input, select {
-  width: 100%;
-  padding: 13px;
-  margin: 5px 0 12px;
-  color: white;
-  background: rgba(5,12,30,.65);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  outline: none;
-}
-
-input::placeholder { color: #a8bad6; }
-
-input:focus, select:focus {
-  border-color: var(--blue);
-}
-
-label {
-  display: block;
-  margin-top: 8px;
-  color: #dce9ff;
-  font-size: 14px;
-}
-
-button {
-  padding: 12px 15px;
-  color: white;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: linear-gradient(135deg,
-    rgba(100,176,255,.8),
-    rgba(82,102,240,.72));
-  cursor: pointer;
-  transition: transform .18s, filter .18s;
-  -webkit-tap-highlight-color: transparent;
-}
-
-button:active { transform: scale(.96); }
-
-.categories {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.categories button {
-  flex: 1 0 auto;
-  background: rgba(255,255,255,.07);
-}
-
-.categories button.active {
-  background: linear-gradient(135deg,
-    rgba(74,163,255,.8),
-    rgba(104,101,240,.7));
-  box-shadow: 0 0 18px rgba(65,147,255,.2);
-}
-
-.add-button { width: 100%; font-weight: bold; }
-
-.note {
-  color: #b8c9e4;
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 13px;
-}
-
-.card {
-  min-width: 0;
-  overflow: hidden;
-  border-radius: 19px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,.065);
-  box-shadow: 0 10px 28px rgba(0,0,0,.22);
-  animation: appear .3s ease both;
-}
-
-.card img {
-  display: block;
-  width: 100%;
-  height: 225px;
-  object-fit: cover;
-  background: rgba(255,255,255,.05);
-}
-
-.card h3 {
-  margin: 12px 10px;
-  font-size: 14px;
-  overflow-wrap: anywhere;
-}
-
-.actions {
-  display: flex;
-  gap: 7px;
-  padding: 0 9px 10px;
-}
-
-.actions button {
-  flex: 1;
-  min-width: 0;
-  padding: 10px 4px;
-  font-size: 12px;
-}
-
-.actions .delete {
-  background: rgba(255,75,100,.25);
-}
-
-.empty {
-  grid-column: 1 / -1;
-  padding: 35px 10px;
-  text-align: center;
-  color: #c7d7f1;
-}
-
-footer {
-  padding: 28px 10px;
-  color: #9fb4d5;
-  text-align: center;
-  font-size: 12px;
-}
-
-/* LIQUID GLASS LOADING SCREEN */
-#wallz-loader {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 22px;
-  background:
-    radial-gradient(ellipse at 20% 20%, #17477d, transparent 45%),
-    radial-gradient(ellipse at 80% 80%, #34245f, transparent 45%),
-    #080e20;
-  transition: opacity .6s ease, visibility .6s ease;
-}
-
-#wallz-loader.loader-hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.loader-glass {
-  width: 100%;
-  max-width: 340px;
-  padding: 38px 24px;
-  text-align: center;
-  border: 1px solid rgba(255,255,255,.2);
-  border-radius: 30px;
-  background: rgba(255,255,255,.075);
-  box-shadow: 0 20px 70px rgba(0,0,0,.3),
-    inset 0 1px rgba(255,255,255,.2);
-  -webkit-backdrop-filter: blur(25px);
-  backdrop-filter: blur(25px);
-  animation: float 3s ease-in-out infinite;
-}
-
-.loader-logo {
-  font-size: 54px;
-  font-weight: 900;
-  letter-spacing: 5px;
-  text-shadow: 0 0 30px rgba(90,170,255,.8);
-}
-
-.loader-logo span { color: var(--blue); }
-
-.loader-subtitle {
-  color: #c4d8f5;
-  margin: 8px 0 30px;
-}
-
-.loader-spinner {
-  width: 42px;
-  height: 42px;
-  margin: 0 auto 25px;
-  border: 3px solid rgba(255,255,255,.15);
-  border-top-color: #62b5ff;
-  border-right-color: #a58bff;
-  border-radius: 50%;
-  animation: spin .8s linear infinite;
-}
-
-.loader-track {
-  height: 5px;
-  overflow: hidden;
-  border-radius: 20px;
-  background: rgba(255,255,255,.12);
-}
-
-#loader-progress {
-  width: 0;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg,#62b5ff,#a58bff);
-  box-shadow: 0 0 14px #62b5ff;
-  transition: width .2s ease;
-}
-
-#loader-status {
-  margin-top: 15px;
-  color: #c4d8f5;
-  font-size: 12px;
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-@keyframes float {
-  50% { transform: translateY(-7px); }
-}
-
-@keyframes appear {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (min-width: 600px) {
-  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .card img { height: 290px; }
-}
-
-@media (min-width: 900px) {
-  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
-  }
-}
+.filters{display:flex;gap:8px;overflow:auto;margin:18px 0}
+.filters button{white-space:nowrap}
+.filters .active{background:linear-gradient(120deg,#159eff,#835cff)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.wall{overflow:hidden}
+.wall img{width:100%;height:210px;object-fit:cover;display:block}
+.info{padding:12px}
+.info small{color:#bac6df}
+.actions{display:flex;gap:7px;margin-top:10px}
+.actions button{flex:1;padding:9px 5px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.wall img{height:280px}}
+#updateBox{display:none;position:fixed;inset:0;background:#000b;z-index:10;align-items:center;justify-content:center;padding:20px}
+.dialog{max-width:380px;width:100%;padding:24px}
+#toast{position:fixed;bottom:15px;left:5%;width:90%;text-align:center;padding:12px;background:#172440;border-radius:12px;display:none}
 </style>
 </head>
-
 <body>
 
-<!-- LOADING SCREEN -->
-<div id="wallz-loader">
-  <div class="loader-glass">
-    <div class="loader-logo">WALL<span>Z</span></div>
-    <p class="loader-subtitle">Your screen. Your style.</p>
-    <div class="loader-spinner"></div>
-    <div class="loader-track">
-      <div id="loader-progress"></div>
-    </div>
-    <div id="loader-status">Preparing your wallpapers...</div>
-  </div>
-</div>
-
-<header>
-  <h1 class="logo">WALL<span>Z</span></h1>
-  <p>Your screen. Your style. ✦</p>
+<header class="glass">
+ <div class="logo">WALL<span>Z</span></div>
+ <button class="primary" onclick="document.getElementById('upload').click()">＋ Add</button>
 </header>
 
-<main>
-  <section class="tools glass">
-    <input id="search" type="search"
-      placeholder="⌕ Search wallpapers..."
-      aria-label="Search wallpapers">
+<section class="hero glass">
+ <small style="color:#72d8ff;letter-spacing:2px">YOUR SCREEN. YOUR STYLE.</small>
+ <h1>Find your next wallpaper.</h1>
+ <p>Discover wallpapers for your phone and save your favourites.</p>
+ <input id="search" placeholder="Search wallpapers..." oninput="render()">
+ <input id="upload" type="file" accept="image/*" hidden onchange="addWallpaper(event)">
+</section>
 
-    <div class="categories" id="categories">
-      <button class="active" data-cat="All">All</button>
-      <button data-cat="Anime">Anime</button>
-      <button data-cat="Gaming">Gaming</button>
-      <button data-cat="Cars">Cars</button>
-      <button data-cat="Nature">Nature</button>
-    </div>
-  </section>
+<nav class="filters" id="filters"></nav>
+<h2 id="heading">Explore wallpapers</h2>
+<div id="grid" class="grid"></div>
 
-  <section class="upload glass">
-    <h2>＋ Add a wallpaper</h2>
-    <p class="note">Choose an image from your Gallery, name it, and select a category.</p>
-
-    <label for="photo">Choose picture</label>
-    <input id="photo" type="file" accept="image/*">
-
-    <label for="title">Wallpaper name</label>
-    <input id="title" maxlength="70" placeholder="Enter a name">
-
-    <label for="category">Category</label>
-    <select id="category">
-      <option>Anime</option>
-      <option>Gaming</option>
-      <option>Cars</option>
-      <option>Nature</option>
-    </select>
-
-    <button class="add-button" id="add">＋ Add wallpaper</button>
-    <p class="note" id="message" aria-live="polite">
-      Your added pictures are saved in this browser only.
-    </p>
-  </section>
-
-  <div class="grid" id="gallery" aria-live="polite"></div>
-</main>
-
-<footer>WALLZ · Liquid Glass Edition</footer>
+<div id="updateBox">
+ <div class="dialog glass">
+  <h2>✨ WALLZ Update</h2>
+  <p id="updateMessage">A new version is ready!</p>
+  <button onclick="document.getElementById('updateBox').style.display='none'">Later</button>
+  <button class="primary" onclick="applyUpdate()">Update now</button>
+ </div>
+</div>
+<div id="toast"></div>
 
 <script>
-const starter = [
-  {
-    title: "Anime wallpaper", category: "Anime",
-    url: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80"
-  },
-  {
-    title: "Gaming setup", category: "Gaming",
-    url: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80"
-  },
-  {
-    title: "Sports car", category: "Cars",
-    url: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80"
-  },
-  {
-    title: "Mountain nature", category: "Nature",
-    url: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80"
-  }
+const categories=['All','Anime','Gaming','Cars','Nature','My uploads'];
+
+const starter=[
+ {id:'1',title:'Mountain Escape',category:'Nature',image:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=80'},
+ {id:'2',title:'Blue Ocean',category:'Nature',image:'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=700&q=80'},
+ {id:'3',title:'Dream Car',category:'Cars',image:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=700&q=80'},
+ {id:'4',title:'Space Galaxy',category:'Gaming',image:'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=700&q=80'},
+ {id:'5',title:'Forest',category:'Nature',image:'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=700&q=80'},
+ {id:'6',title:'Night City',category:'Gaming',image:'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=80'}
 ];
 
-let chosen = "All";
-let custom = [];
+let selected='All';
+let uploads=loadUploads();
 
-const gallery = document.getElementById("gallery");
-const search = document.getElementById("search");
-const message = document.getElementById("message");
-
-try {
-  const saved = JSON.parse(localStorage.getItem("wallzCustom") || "[]");
-  if (Array.isArray(saved)) {
-    custom = saved.filter(w =>
-      w && typeof w.title === "string" &&
-      typeof w.url === "string" &&
-      typeof w.category === "string" &&
-      w.url.startsWith("data:image/")
-    );
-  }
-} catch (e) {
-  custom = [];
+function loadUploads(){
+ try{return JSON.parse(localStorage.getItem('wallz_uploads')||'[]')}
+ catch(e){return []}
 }
-
-function save() {
-  try {
-    localStorage.setItem("wallzCustom", JSON.stringify(custom));
-    return true;
-  } catch (e) {
-    message.textContent =
-      "Storage is full. Delete a wallpaper or choose a smaller image.";
-    return false;
-  }
+function saveUploads(){
+ try{
+  localStorage.setItem('wallz_uploads',JSON.stringify(uploads));
+  return true;
+ }catch(e){
+  notify('Storage full. Try a smaller image.');
+  return false;
+ }
 }
-
-function render() {
-  gallery.innerHTML = "";
-
-  const term = search.value.trim().toLowerCase();
-  const list = [...starter, ...custom].filter(w =>
-    (chosen === "All" || w.category === chosen) &&
-    w.title.toLowerCase().includes(term)
-  );
-
-  if (!list.length) {
-    const empty = document.createElement("div");
-    empty.className = "empty";
-    empty.textContent = "No wallpapers found ✦";
-    gallery.appendChild(empty);
-    return;
-  }
-
-  list.forEach(w => {
-    const card = document.createElement("article");
-    card.className = "card";
-
-    const img = document.createElement("img");
-    img.src = w.url;
-    img.alt = w.title;
-    img.loading = "lazy";
-
-    const name = document.createElement("h3");
-    name.textContent = w.title;
-
-    const actions = document.createElement("div");
-    actions.className = "actions";
-
-    const download = document.createElement("button");
-    download.textContent = "↓ Download";
-
-    download.onclick = async () => {
-      try {
-        const response = await fetch(w.url);
-        if (!response.ok) throw new Error("Download failed");
-
-        const blob = await response.blob();
-        const objectUrl = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = objectUrl;
-        a.download = w.title.replace(/[^a-z0-9_-]/gi, "-") + ".jpg";
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        setTimeout(() => URL.revokeObjectURL(objectUrl), 1500);
-      } catch (e) {
-        window.open(w.url, "_blank", "noopener");
-        message.textContent =
-          "Image opened. If it did not download, press and hold it to save.";
-      }
-    };
-
-    actions.appendChild(download);
-
-    if (w.custom) {
-      const del = document.createElement("button");
-      del.textContent = "Delete";
-      del.className = "delete";
-
-      del.onclick = () => {
-        if (!confirm("Delete this wallpaper?")) return;
-        const index = custom.indexOf(w);
-        if (index < 0) return;
-
-        const removed = custom.splice(index, 1);
-        if (!save()) custom.splice(index, 0, ...removed);
-        render();
-      };
-
-      actions.appendChild(del);
-    }
-
-    card.append(img, name, actions);
-    gallery.appendChild(card);
+function esc(s){
+ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function notify(message){
+ const t=document.getElementById('toast');
+ t.textContent=message;t.style.display='block';
+ clearTimeout(window.toastTimer);
+ window.toastTimer=setTimeout(()=>t.style.display='none',2600);
+}
+function allWalls(){return [...starter,...uploads]}
+function renderFilters(){
+ const f=document.getElementById('filters');
+ f.innerHTML=categories.map(c=>
+  `<button class="${c===selected?'active':''}" onclick="chooseCategory('${c}')">${c}</button>`
+ ).join('');
+}
+function chooseCategory(c){selected=c;renderFilters();render()}
+function render(){
+ const q=document.getElementById('search').value.toLowerCase();
+ const list=allWalls().filter(w=>
+  (selected==='All'||(selected==='My uploads'?w.own:w.category===selected))&&
+  (w.title+' '+w.category).toLowerCase().includes(q)
+ );
+ document.getElementById('heading').textContent=selected==='All'?'Explore wallpapers':selected;
+ const grid=document.getElementById('grid');
+ if(!list.length){grid.innerHTML='<p>No wallpapers found.</p>';return}
+ grid.innerHTML=list.map(w=>`
+  <article class="wall glass">
+   <img loading="lazy" src="${esc(w.image)}" alt="${esc(w.title)}">
+   <div class="info">
+    <strong>${esc(w.title)}</strong><br>
+    <small>${esc(w.category)}</small>
+    <div class="actions">
+     <button class="primary" onclick="downloadWall('${w.id}')">↓ Save</button>
+     ${w.own?`<button onclick="deleteWall('${w.id}')">Delete</button>`:''}
+    </div>
+   </div>
+  </article>`).join('');
+}
+async function downloadWall(id){
+ const w=allWalls().find(x=>x.id===id);
+ if(!w)return;
+ try{
+  const r=await fetch(w.image);
+  if(!r.ok)throw Error('Fetch failed');
+  const blob=await r.blob();
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=(w.title||'WALLZ').replace(/[^\w-]/g,'_')+'.jpg';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),10000);
+  notify('Download started!');
+ }catch(e){
+  notify('Opening image. Use the image menu to save it.');
+  window.open(w.image,'_blank');
+ }
+}
+function addWallpaper(event){
+ const file=event.target.files[0];
+ if(!file)return;
+ if(!file.type.startsWith('image/')){notify('Choose an image.');return}
+ if(file.size>3*1024*1024){notify('Choose an image under 3 MB.');return}
+ const reader=new FileReader();
+ reader.onload=()=>{
+  const title=prompt('Wallpaper name?',file.name.replace(/\.[^.]+$/,''))||file.name;
+  uploads.unshift({
+   id:'u'+Date.now(),title,category:prompt('Category: Anime, Gaming, Cars, Nature or Other','Other')||'Other',
+   image:reader.result,own:true
   });
+  if(saveUploads()){selected='My uploads';renderFilters();render();notify('Wallpaper added!')}
+ };
+ reader.readAsDataURL(file);event.target.value='';
 }
+function deleteWall(id){
+ if(!confirm('Delete this wallpaper?'))return;
+ uploads=uploads.filter(w=>w.id!==id);
+ if(saveUploads())render();
+}
+renderFilters();render();
 
-document.getElementById("categories").addEventListener("click", e => {
-  if (!e.target.matches("button[data-cat]")) return;
-  chosen = e.target.dataset.cat;
-
-  document.querySelectorAll(".categories button").forEach(b =>
-    b.classList.toggle("active", b === e.target)
-  );
-  render();
-});
-
-search.addEventListener("input", render);
-
-document.getElementById("add").onclick = () => {
-  const file = document.getElementById("photo").files[0];
-  const title = document.getElementById("title").value.trim();
-  const category = document.getElementById("category").value;
-
-  if (!file || !title) {
-    message.textContent = "Choose a picture and enter a name first.";
-    return;
+/* UPDATE CHECK:
+   Change version.json on GitHub whenever you publish an update. */
+let latestVersion='';
+async function checkUpdate(){
+ try{
+  const r=await fetch('./version.json?t='+Date.now(),{cache:'no-store'});
+  if(!r.ok)return;
+  const data=await r.json();
+  if(!data.version)return;
+  const seen=localStorage.getItem('wallz_version');
+  if(!seen){localStorage.setItem('wallz_version',data.version);return}
+  if(seen!==data.version){
+   latestVersion=data.version;
+   document.getElementById('updateMessage').textContent=
+    data.message||'A new WALLZ update is ready.';
+   document.getElementById('updateBox').style.display='flex';
   }
-
-  if (!file.type.startsWith("image/")) {
-    message.textContent = "Please choose an image file.";
-    return;
-  }
-
-  if (file.size > 2 * 1024 * 1024) {
-    message.textContent = "Choose an image smaller than 2 MB.";
-    return;
-  }
-
-  const reader = new FileReader();
-
-  reader.onload = () => {
-    const wallpaper = {
-      title, category, url: reader.result, custom: true
-    };
-
-    custom.push(wallpaper);
-    if (!save()) {
-      custom.pop();
-      return;
-    }
-
-    document.getElementById("photo").value = "";
-    document.getElementById("title").value = "";
-    chosen = "All";
-    search.value = "";
-
-    document.querySelectorAll(".categories button").forEach(b =>
-      b.classList.toggle("active", b.dataset.cat === "All")
-    );
-
-    message.textContent = "Wallpaper added successfully! ✦";
-    render();
-  };
-
-  reader.onerror = () => {
-    message.textContent = "Could not read the image. Please try again.";
-  };
-
-  reader.readAsDataURL(file);
-};
-
-render();
-
-/* LOADING SCREEN ANIMATION */
-(() => {
-  const loader = document.getElementById("wallz-loader");
-  const progress = document.getElementById("loader-progress");
-  const status = document.getElementById("loader-status");
-
-  const steps = [
-    [25, "Preparing your wallpapers..."],
-    [55, "Loading the gallery..."],
-    [80, "Adding the finishing touches..."],
-    [100, "Welcome to WALLZ!"]
-  ];
-
-  let step = 0;
-
-  function advance() {
-    const current = steps[step];
-    progress.style.width = current[0] + "%";
-    status.textContent = current[1];
-    step++;
-
-    if (step < steps.length) {
-      setTimeout(advance, 350);
-    } else {
-      setTimeout(() => {
-        loader.classList.add("loader-hidden");
-        setTimeout(() => loader.remove(), 650);
-      }, 300);
-    }
-  }
-
-  if (document.readyState === "complete") {
-    advance();
-  } else {
-    window.addEventListener("load", advance, { once: true });
-  }
-})();
+ }catch(e){}
+}
+function applyUpdate(){
+ if(latestVersion)localStorage.setItem('wallz_version',latestVersion);
+ const u=new URL(location.href);u.searchParams.set('refresh',Date.now());
+ location.replace(u.href);
+}
+setTimeout(checkUpdate,2000);
+setInterval(checkUpdate,60000);
 </script>
 </body>
 </html>
