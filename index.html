@@ -10,63 +10,39 @@
 <style>
 :root {
   --blue: #62b5ff;
-  --glass: rgba(255,255,255,.075);
   --border: rgba(255,255,255,.17);
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   min-height: 100vh;
-  color: #f5f8ff;
+  color: white;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
   background:
-    radial-gradient(ellipse at 10% 5%, #173c70 0, transparent 38%),
-    radial-gradient(ellipse at 95% 30%, #32245f 0, transparent 35%),
-    radial-gradient(ellipse at 50% 100%, #102c53 0, transparent 45%),
+    radial-gradient(ellipse at 10% 5%, #173c70, transparent 38%),
+    radial-gradient(ellipse at 95% 30%, #32245f, transparent 35%),
     #080e20;
   background-attachment: fixed;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  background: linear-gradient(135deg,
-    rgba(71,160,255,.08),
-    transparent 45%,
-    rgba(173,120,255,.08));
-}
-
 header {
   text-align: center;
-  padding: 38px 16px 25px;
+  padding: 35px 16px 24px;
 }
 
 .logo {
-  display: inline-block;
   margin: 0;
-  font-size: clamp(42px, 10vw, 65px);
+  font-size: 55px;
   font-weight: 900;
   letter-spacing: 5px;
-  color: #fff;
   text-shadow: 0 0 24px rgba(85,170,255,.75);
 }
 
-.logo span {
-  color: var(--blue);
-}
+.logo span { color: var(--blue); }
 
-header p {
-  margin: 8px 0 0;
-  color: #c5d8f6;
-  letter-spacing: 1px;
-}
+header p { color: #c5d8f6; }
 
 main {
   max-width: 1100px;
@@ -75,100 +51,60 @@ main {
 }
 
 .glass {
-  background: linear-gradient(
-    135deg,
+  background: linear-gradient(135deg,
     rgba(255,255,255,.13),
     rgba(255,255,255,.035) 55%,
-    rgba(112,168,255,.07)
-  );
+    rgba(112,168,255,.07));
   border: 1px solid var(--border);
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,.13),
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.13),
     0 12px 35px rgba(0,0,0,.2);
   -webkit-backdrop-filter: blur(22px) saturate(160%);
   backdrop-filter: blur(22px) saturate(160%);
   border-radius: 23px;
 }
 
-.tools, .upload {
-  padding: 18px;
-  margin-bottom: 18px;
-}
+.tools, .upload { padding: 18px; margin-bottom: 18px; }
 
-h2 {
-  margin-top: 0;
-  font-size: 21px;
-}
-
-input, select, button {
-  font: inherit;
-}
+input, select, button { font: inherit; }
 
 input, select {
   width: 100%;
-  color: white;
-  background: rgba(5,12,30,.55);
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 15px;
-  padding: 14px;
+  padding: 13px;
   margin: 5px 0 12px;
+  color: white;
+  background: rgba(5,12,30,.65);
+  border: 1px solid var(--border);
+  border-radius: 14px;
   outline: none;
 }
 
+input::placeholder { color: #a8bad6; }
+
 input:focus, select:focus {
   border-color: var(--blue);
-  box-shadow: 0 0 0 3px rgba(98,181,255,.12);
-}
-
-input::placeholder {
-  color: #a8bad6;
-}
-
-input[type="file"] {
-  font-size: 13px;
-}
-
-input[type="file"]::file-selector-button {
-  border: 0;
-  border-radius: 9px;
-  padding: 9px;
-  margin-right: 8px;
-  color: white;
-  background: rgba(78,145,255,.4);
 }
 
 label {
   display: block;
+  margin-top: 8px;
   color: #dce9ff;
   font-size: 14px;
-  margin-top: 8px;
 }
 
 button {
-  border: 1px solid rgba(255,255,255,.19);
-  border-radius: 14px;
   padding: 12px 15px;
   color: white;
-  background: linear-gradient(
-    135deg,
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: linear-gradient(135deg,
     rgba(100,176,255,.8),
-    rgba(82,102,240,.72)
-  );
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+    rgba(82,102,240,.72));
   cursor: pointer;
-  transition: transform .18s, filter .18s, background .18s;
+  transition: transform .18s, filter .18s;
   -webkit-tap-highlight-color: transparent;
 }
 
-button:active {
-  transform: scale(.96);
-}
-
-@media (hover:hover) {
-  button:hover {
-    filter: brightness(1.2);
-  }
-}
+button:active { transform: scale(.96); }
 
 .categories {
   display: flex;
@@ -180,34 +116,21 @@ button:active {
 .categories button {
   flex: 1 0 auto;
   background: rgba(255,255,255,.07);
-  color: #d9e7ff;
 }
 
 .categories button.active {
-  color: white;
-  border-color: rgba(130,197,255,.7);
-  background: linear-gradient(
-    135deg,
-    rgba(74,163,255,.65),
-    rgba(104,101,240,.48)
-  );
-  box-shadow: 0 0 20px rgba(65,147,255,.17);
+  background: linear-gradient(135deg,
+    rgba(74,163,255,.8),
+    rgba(104,101,240,.7));
+  box-shadow: 0 0 18px rgba(65,147,255,.2);
 }
 
-.add-button {
-  width: 100%;
-  font-weight: 700;
-  margin-top: 5px;
-}
+.add-button { width: 100%; font-weight: bold; }
 
 .note {
   color: #b8c9e4;
   font-size: 13px;
   line-height: 1.6;
-}
-
-#message {
-  overflow-wrap: anywhere;
 }
 
 .grid {
@@ -220,18 +143,16 @@ button:active {
   min-width: 0;
   overflow: hidden;
   border-radius: 19px;
-  border: 1px solid rgba(255,255,255,.17);
+  border: 1px solid var(--border);
   background: rgba(255,255,255,.065);
   box-shadow: 0 10px 28px rgba(0,0,0,.22);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-  animation: appear .35s ease both;
+  animation: appear .3s ease both;
 }
 
 .card img {
   display: block;
   width: 100%;
-  height: 230px;
+  height: 225px;
   object-fit: cover;
   background: rgba(255,255,255,.05);
 }
@@ -239,7 +160,6 @@ button:active {
 .card h3 {
   margin: 12px 10px;
   font-size: 14px;
-  line-height: 1.4;
   overflow-wrap: anywhere;
 }
 
@@ -252,27 +172,116 @@ button:active {
 .actions button {
   flex: 1;
   min-width: 0;
-  padding: 10px 5px;
+  padding: 10px 4px;
   font-size: 12px;
 }
 
 .actions .delete {
   background: rgba(255,75,100,.25);
-  border-color: rgba(255,100,120,.3);
 }
 
 .empty {
-  color: #c7d7f1;
-  text-align: center;
-  padding: 35px 10px;
   grid-column: 1 / -1;
+  padding: 35px 10px;
+  text-align: center;
+  color: #c7d7f1;
 }
 
 footer {
-  text-align: center;
+  padding: 28px 10px;
   color: #9fb4d5;
+  text-align: center;
   font-size: 12px;
-  padding: 30px 10px;
+}
+
+/* LIQUID GLASS LOADING SCREEN */
+#wallz-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  background:
+    radial-gradient(ellipse at 20% 20%, #17477d, transparent 45%),
+    radial-gradient(ellipse at 80% 80%, #34245f, transparent 45%),
+    #080e20;
+  transition: opacity .6s ease, visibility .6s ease;
+}
+
+#wallz-loader.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-glass {
+  width: 100%;
+  max-width: 340px;
+  padding: 38px 24px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 30px;
+  background: rgba(255,255,255,.075);
+  box-shadow: 0 20px 70px rgba(0,0,0,.3),
+    inset 0 1px rgba(255,255,255,.2);
+  -webkit-backdrop-filter: blur(25px);
+  backdrop-filter: blur(25px);
+  animation: float 3s ease-in-out infinite;
+}
+
+.loader-logo {
+  font-size: 54px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  text-shadow: 0 0 30px rgba(90,170,255,.8);
+}
+
+.loader-logo span { color: var(--blue); }
+
+.loader-subtitle {
+  color: #c4d8f5;
+  margin: 8px 0 30px;
+}
+
+.loader-spinner {
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 25px;
+  border: 3px solid rgba(255,255,255,.15);
+  border-top-color: #62b5ff;
+  border-right-color: #a58bff;
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+
+.loader-track {
+  height: 5px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: rgba(255,255,255,.12);
+}
+
+#loader-progress {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg,#62b5ff,#a58bff);
+  box-shadow: 0 0 14px #62b5ff;
+  transition: width .2s ease;
+}
+
+#loader-status {
+  margin-top: 15px;
+  color: #c4d8f5;
+  font-size: 12px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes float {
+  50% { transform: translateY(-7px); }
 }
 
 @keyframes appear {
@@ -281,9 +290,8 @@ footer {
 }
 
 @media (min-width: 600px) {
-  main { padding: 20px; }
   .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .card img { height: 300px; }
+  .card img { height: 290px; }
 }
 
 @media (min-width: 900px) {
@@ -300,6 +308,20 @@ footer {
 </head>
 
 <body>
+
+<!-- LOADING SCREEN -->
+<div id="wallz-loader">
+  <div class="loader-glass">
+    <div class="loader-logo">WALL<span>Z</span></div>
+    <p class="loader-subtitle">Your screen. Your style.</p>
+    <div class="loader-spinner"></div>
+    <div class="loader-track">
+      <div id="loader-progress"></div>
+    </div>
+    <div id="loader-status">Preparing your wallpapers...</div>
+  </div>
+</div>
+
 <header>
   <h1 class="logo">WALL<span>Z</span></h1>
   <p>Your screen. Your style. ✦</p>
@@ -308,7 +330,7 @@ footer {
 <main>
   <section class="tools glass">
     <input id="search" type="search"
-      placeholder="⌕  Search wallpapers..."
+      placeholder="⌕ Search wallpapers..."
       aria-label="Search wallpapers">
 
     <div class="categories" id="categories">
@@ -322,17 +344,15 @@ footer {
 
   <section class="upload glass">
     <h2>＋ Add a wallpaper</h2>
-    <p class="note">
-      Pick an image from your phone Gallery and add it to your collection.
-    </p>
+    <p class="note">Choose an image from your Gallery, name it, and select a category.</p>
 
-    <label for="photo">Choose your picture</label>
+    <label for="photo">Choose picture</label>
     <input id="photo" type="file" accept="image/*">
 
     <label for="title">Wallpaper name</label>
-    <input id="title" maxlength="70" placeholder="Give it a name">
+    <input id="title" maxlength="70" placeholder="Enter a name">
 
-    <label for="category">Choose a category</label>
+    <label for="category">Category</label>
     <select id="category">
       <option>Anime</option>
       <option>Gaming</option>
@@ -342,7 +362,7 @@ footer {
 
     <button class="add-button" id="add">＋ Add wallpaper</button>
     <p class="note" id="message" aria-live="polite">
-      Your added wallpapers are saved on this browser only.
+      Your added pictures are saved in this browser only.
     </p>
   </section>
 
@@ -354,23 +374,19 @@ footer {
 <script>
 const starter = [
   {
-    title: "Anime wallpaper",
-    category: "Anime",
+    title: "Anime wallpaper", category: "Anime",
     url: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80"
   },
   {
-    title: "Gaming setup",
-    category: "Gaming",
+    title: "Gaming setup", category: "Gaming",
     url: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80"
   },
   {
-    title: "Sports car",
-    category: "Cars",
+    title: "Sports car", category: "Cars",
     url: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80"
   },
   {
-    title: "Mountain nature",
-    category: "Nature",
+    title: "Mountain nature", category: "Nature",
     url: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80"
   }
 ];
@@ -402,7 +418,7 @@ function save() {
     return true;
   } catch (e) {
     message.textContent =
-      "Browser storage is full. Delete a wallpaper or use a smaller image.";
+      "Storage is full. Delete a wallpaper or choose a smaller image.";
     return false;
   }
 }
@@ -457,10 +473,9 @@ function render() {
         a.remove();
         setTimeout(() => URL.revokeObjectURL(objectUrl), 1500);
       } catch (e) {
-        // Fallback for images whose host blocks direct downloads.
         window.open(w.url, "_blank", "noopener");
         message.textContent =
-          "Opened the image. If it did not download, press and hold it to save.";
+          "Image opened. If it did not download, press and hold it to save.";
       }
     };
 
@@ -474,11 +489,11 @@ function render() {
       del.onclick = () => {
         if (!confirm("Delete this wallpaper?")) return;
         const index = custom.indexOf(w);
-        if (index !== -1) {
-          const previous = custom.splice(index, 1);
-          if (!save()) custom.splice(index, 0, ...previous);
-          render();
-        }
+        if (index < 0) return;
+
+        const removed = custom.splice(index, 1);
+        if (!save()) custom.splice(index, 0, ...removed);
+        render();
       };
 
       actions.appendChild(del);
@@ -491,13 +506,11 @@ function render() {
 
 document.getElementById("categories").addEventListener("click", e => {
   if (!e.target.matches("button[data-cat]")) return;
-
   chosen = e.target.dataset.cat;
 
-  document.querySelectorAll(".categories button").forEach(b => {
-    b.classList.toggle("active", b === e.target);
-  });
-
+  document.querySelectorAll(".categories button").forEach(b =>
+    b.classList.toggle("active", b === e.target)
+  );
   render();
 });
 
@@ -527,14 +540,10 @@ document.getElementById("add").onclick = () => {
 
   reader.onload = () => {
     const wallpaper = {
-      title,
-      category,
-      url: reader.result,
-      custom: true
+      title, category, url: reader.result, custom: true
     };
 
     custom.push(wallpaper);
-
     if (!save()) {
       custom.pop();
       return;
@@ -543,25 +552,62 @@ document.getElementById("add").onclick = () => {
     document.getElementById("photo").value = "";
     document.getElementById("title").value = "";
     chosen = "All";
-
-    document.querySelectorAll(".categories button").forEach(b => {
-      b.classList.toggle("active", b.dataset.cat === "All");
-    });
-
     search.value = "";
-    message.textContent =
-      "Wallpaper added successfully! ✦ It is saved on this browser.";
+
+    document.querySelectorAll(".categories button").forEach(b =>
+      b.classList.toggle("active", b.dataset.cat === "All")
+    );
+
+    message.textContent = "Wallpaper added successfully! ✦";
     render();
   };
 
   reader.onerror = () => {
-    message.textContent = "Could not read that image. Please try again.";
+    message.textContent = "Could not read the image. Please try again.";
   };
 
   reader.readAsDataURL(file);
 };
 
 render();
+
+/* LOADING SCREEN ANIMATION */
+(() => {
+  const loader = document.getElementById("wallz-loader");
+  const progress = document.getElementById("loader-progress");
+  const status = document.getElementById("loader-status");
+
+  const steps = [
+    [25, "Preparing your wallpapers..."],
+    [55, "Loading the gallery..."],
+    [80, "Adding the finishing touches..."],
+    [100, "Welcome to WALLZ!"]
+  ];
+
+  let step = 0;
+
+  function advance() {
+    const current = steps[step];
+    progress.style.width = current[0] + "%";
+    status.textContent = current[1];
+    step++;
+
+    if (step < steps.length) {
+      setTimeout(advance, 350);
+    } else {
+      setTimeout(() => {
+        loader.classList.add("loader-hidden");
+        setTimeout(() => loader.remove(), 650);
+      }, 300);
+    }
+  }
+
+  if (document.readyState === "complete") {
+    advance();
+  } else {
+    window.addEventListener("load", advance, { once: true });
+  }
+})();
 </script>
 </body>
 </html>
