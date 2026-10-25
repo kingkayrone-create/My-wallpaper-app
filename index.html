@@ -4,144 +4,563 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WALLZ - Wallpapers</title>
+<meta name="theme-color" content="#080e20">
+<title>WALLZ — Liquid Glass</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#0b1020;color:white;font-family:Arial,sans-serif}
-header{padding:24px 16px;text-align:center;background:#141c32}
-h1{margin:0;color:#62a5ff;font-size:36px}
-header p{color:#bdc9df}
-main{max-width:1000px;margin:auto;padding:16px}
-input,select,button{padding:12px;border:0;border-radius:10px;font-size:15px}
-input,select{background:#202b43;color:white;width:100%;margin:5px 0 12px}
-button{cursor:pointer;background:#3985ff;color:white;font-weight:bold}
-.tools,.upload{background:#141c32;padding:15px;border-radius:15px;margin-bottom:16px}
-.categories{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
-.categories button{background:#263550}
-.categories button.active{background:#3985ff}
-.upload label{display:block;margin-top:8px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:14px}
-.card{background:#141c32;border-radius:14px;overflow:hidden}
-.card img{width:100%;height:220px;object-fit:cover;display:block}
-.card h3{font-size:15px;margin:10px}
-.actions{display:flex;gap:6px;padding:0 8px 10px}
-.actions button{flex:1;padding:9px 5px;font-size:13px}
-.delete{background:#d94455}
-.note{color:#bdc9df;font-size:13px;line-height:1.5}
+:root {
+  --blue: #62b5ff;
+  --glass: rgba(255,255,255,.075);
+  --border: rgba(255,255,255,.17);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: #f5f8ff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  background:
+    radial-gradient(ellipse at 10% 5%, #173c70 0, transparent 38%),
+    radial-gradient(ellipse at 95% 30%, #32245f 0, transparent 35%),
+    radial-gradient(ellipse at 50% 100%, #102c53 0, transparent 45%),
+    #080e20;
+  background-attachment: fixed;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background: linear-gradient(135deg,
+    rgba(71,160,255,.08),
+    transparent 45%,
+    rgba(173,120,255,.08));
+}
+
+header {
+  text-align: center;
+  padding: 38px 16px 25px;
+}
+
+.logo {
+  display: inline-block;
+  margin: 0;
+  font-size: clamp(42px, 10vw, 65px);
+  font-weight: 900;
+  letter-spacing: 5px;
+  color: #fff;
+  text-shadow: 0 0 24px rgba(85,170,255,.75);
+}
+
+.logo span {
+  color: var(--blue);
+}
+
+header p {
+  margin: 8px 0 0;
+  color: #c5d8f6;
+  letter-spacing: 1px;
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 14px;
+}
+
+.glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,.13),
+    rgba(255,255,255,.035) 55%,
+    rgba(112,168,255,.07)
+  );
+  border: 1px solid var(--border);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.13),
+    0 12px 35px rgba(0,0,0,.2);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  backdrop-filter: blur(22px) saturate(160%);
+  border-radius: 23px;
+}
+
+.tools, .upload {
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 21px;
+}
+
+input, select, button {
+  font: inherit;
+}
+
+input, select {
+  width: 100%;
+  color: white;
+  background: rgba(5,12,30,.55);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 15px;
+  padding: 14px;
+  margin: 5px 0 12px;
+  outline: none;
+}
+
+input:focus, select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(98,181,255,.12);
+}
+
+input::placeholder {
+  color: #a8bad6;
+}
+
+input[type="file"] {
+  font-size: 13px;
+}
+
+input[type="file"]::file-selector-button {
+  border: 0;
+  border-radius: 9px;
+  padding: 9px;
+  margin-right: 8px;
+  color: white;
+  background: rgba(78,145,255,.4);
+}
+
+label {
+  display: block;
+  color: #dce9ff;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+button {
+  border: 1px solid rgba(255,255,255,.19);
+  border-radius: 14px;
+  padding: 12px 15px;
+  color: white;
+  background: linear-gradient(
+    135deg,
+    rgba(100,176,255,.8),
+    rgba(82,102,240,.72)
+  );
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+  cursor: pointer;
+  transition: transform .18s, filter .18s, background .18s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:active {
+  transform: scale(.96);
+}
+
+@media (hover:hover) {
+  button:hover {
+    filter: brightness(1.2);
+  }
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.categories button {
+  flex: 1 0 auto;
+  background: rgba(255,255,255,.07);
+  color: #d9e7ff;
+}
+
+.categories button.active {
+  color: white;
+  border-color: rgba(130,197,255,.7);
+  background: linear-gradient(
+    135deg,
+    rgba(74,163,255,.65),
+    rgba(104,101,240,.48)
+  );
+  box-shadow: 0 0 20px rgba(65,147,255,.17);
+}
+
+.add-button {
+  width: 100%;
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+.note {
+  color: #b8c9e4;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+#message {
+  overflow-wrap: anywhere;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.card {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 19px;
+  border: 1px solid rgba(255,255,255,.17);
+  background: rgba(255,255,255,.065);
+  box-shadow: 0 10px 28px rgba(0,0,0,.22);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  animation: appear .35s ease both;
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  background: rgba(255,255,255,.05);
+}
+
+.card h3 {
+  margin: 12px 10px;
+  font-size: 14px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.actions {
+  display: flex;
+  gap: 7px;
+  padding: 0 9px 10px;
+}
+
+.actions button {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 5px;
+  font-size: 12px;
+}
+
+.actions .delete {
+  background: rgba(255,75,100,.25);
+  border-color: rgba(255,100,120,.3);
+}
+
+.empty {
+  color: #c7d7f1;
+  text-align: center;
+  padding: 35px 10px;
+  grid-column: 1 / -1;
+}
+
+footer {
+  text-align: center;
+  color: #9fb4d5;
+  font-size: 12px;
+  padding: 30px 10px;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (min-width: 600px) {
+  main { padding: 20px; }
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .card img { height: 300px; }
+}
+
+@media (min-width: 900px) {
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
 </style>
 </head>
+
 <body>
 <header>
-<h1>WALLZ</h1>
-<p>Find your next wallpaper</p>
+  <h1 class="logo">WALL<span>Z</span></h1>
+  <p>Your screen. Your style. ✦</p>
 </header>
+
 <main>
-<section class="tools">
-<input id="search" placeholder="Search wallpapers..." />
-<div class="categories" id="categories">
-<button class="active" data-cat="All">All</button>
-<button data-cat="Anime">Anime</button>
-<button data-cat="Gaming">Gaming</button>
-<button data-cat="Cars">Cars</button>
-<button data-cat="Nature">Nature</button>
-</div>
-</section>
+  <section class="tools glass">
+    <input id="search" type="search"
+      placeholder="⌕  Search wallpapers..."
+      aria-label="Search wallpapers">
 
-<section class="upload">
-<h2>＋ Add a wallpaper</h2>
-<p class="note">Choose a picture from your Gallery, give it a name and select a category.</p>
-<label for="photo">Choose picture</label>
-<input id="photo" type="file" accept="image/*">
-<label for="title">Wallpaper name</label>
-<input id="title" placeholder="Enter a name">
-<label for="category">Category</label>
-<select id="category">
-<option>Anime</option><option>Gaming</option>
-<option>Cars</option><option>Nature</option>
-</select>
-<button id="add">Add wallpaper</button>
-<p class="note" id="message">Your added pictures are saved in this browser only.</p>
-</section>
+    <div class="categories" id="categories">
+      <button class="active" data-cat="All">All</button>
+      <button data-cat="Anime">Anime</button>
+      <button data-cat="Gaming">Gaming</button>
+      <button data-cat="Cars">Cars</button>
+      <button data-cat="Nature">Nature</button>
+    </div>
+  </section>
 
-<div class="grid" id="gallery"></div>
+  <section class="upload glass">
+    <h2>＋ Add a wallpaper</h2>
+    <p class="note">
+      Pick an image from your phone Gallery and add it to your collection.
+    </p>
+
+    <label for="photo">Choose your picture</label>
+    <input id="photo" type="file" accept="image/*">
+
+    <label for="title">Wallpaper name</label>
+    <input id="title" maxlength="70" placeholder="Give it a name">
+
+    <label for="category">Choose a category</label>
+    <select id="category">
+      <option>Anime</option>
+      <option>Gaming</option>
+      <option>Cars</option>
+      <option>Nature</option>
+    </select>
+
+    <button class="add-button" id="add">＋ Add wallpaper</button>
+    <p class="note" id="message" aria-live="polite">
+      Your added wallpapers are saved on this browser only.
+    </p>
+  </section>
+
+  <div class="grid" id="gallery" aria-live="polite"></div>
 </main>
+
+<footer>WALLZ · Liquid Glass Edition</footer>
+
 <script>
 const starter = [
-{title:"Anime wallpaper",category:"Anime",url:"https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80"},
-{title:"Gaming setup",category:"Gaming",url:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80"},
-{title:"Sports car",category:"Cars",url:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80"},
-{title:"Mountain nature",category:"Nature",url:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80"}
+  {
+    title: "Anime wallpaper",
+    category: "Anime",
+    url: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    title: "Gaming setup",
+    category: "Gaming",
+    url: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    title: "Sports car",
+    category: "Cars",
+    url: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    title: "Mountain nature",
+    category: "Nature",
+    url: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80"
+  }
 ];
+
 let chosen = "All";
 let custom = [];
+
 const gallery = document.getElementById("gallery");
 const search = document.getElementById("search");
 const message = document.getElementById("message");
 
-function render(){
- gallery.innerHTML="";
- const list=[...starter,...custom].filter(w=>
- (chosen==="All"||w.category===chosen)&&
- w.title.toLowerCase().includes(search.value.toLowerCase())
- );
- if(!list.length){gallery.textContent="No wallpapers found.";return}
- list.forEach((w,index)=>{
-  const card=document.createElement("article");
-  card.className="card";
-  const img=document.createElement("img");
-  img.src=w.url;img.alt=w.title;img.loading="lazy";
-  const name=document.createElement("h3");name.textContent=w.title;
-  const actions=document.createElement("div");actions.className="actions";
-  const download=document.createElement("button");
-  download.textContent="Download";
-  download.onclick=()=>{
-   const a=document.createElement("a");
-   a.href=w.url;a.download=w.title.replace(/[^a-z0-9]/gi,"-")+".jpg";
-   a.target="_blank";a.rel="noopener";
-   document.body.appendChild(a);a.click();a.remove();
-  };
-  actions.appendChild(download);
-  if(w.custom){
-   const del=document.createElement("button");
-   del.textContent="Delete";del.className="delete";
-   del.onclick=()=>{custom.splice(custom.indexOf(w),1);save();render()};
-   actions.appendChild(del);
+try {
+  const saved = JSON.parse(localStorage.getItem("wallzCustom") || "[]");
+  if (Array.isArray(saved)) {
+    custom = saved.filter(w =>
+      w && typeof w.title === "string" &&
+      typeof w.url === "string" &&
+      typeof w.category === "string" &&
+      w.url.startsWith("data:image/")
+    );
   }
-  card.append(img,name,actions);gallery.appendChild(card);
- });
+} catch (e) {
+  custom = [];
 }
-function save(){
- try{localStorage.setItem("wallzCustom",JSON.stringify(custom))}
- catch(e){message.textContent="Storage is full. Remove a large picture and try again."}
-}
-try{custom=JSON.parse(localStorage.getItem("wallzCustom")||"[]")}
-catch(e){custom=[]}
 
-document.getElementById("categories").addEventListener("click",e=>{
- if(e.target.tagName!=="BUTTON")return;
- chosen=e.target.dataset.cat;
- document.querySelectorAll(".categories button").forEach(b=>b.classList.toggle("active",b===e.target));
- render();
+function save() {
+  try {
+    localStorage.setItem("wallzCustom", JSON.stringify(custom));
+    return true;
+  } catch (e) {
+    message.textContent =
+      "Browser storage is full. Delete a wallpaper or use a smaller image.";
+    return false;
+  }
+}
+
+function render() {
+  gallery.innerHTML = "";
+
+  const term = search.value.trim().toLowerCase();
+  const list = [...starter, ...custom].filter(w =>
+    (chosen === "All" || w.category === chosen) &&
+    w.title.toLowerCase().includes(term)
+  );
+
+  if (!list.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "No wallpapers found ✦";
+    gallery.appendChild(empty);
+    return;
+  }
+
+  list.forEach(w => {
+    const card = document.createElement("article");
+    card.className = "card";
+
+    const img = document.createElement("img");
+    img.src = w.url;
+    img.alt = w.title;
+    img.loading = "lazy";
+
+    const name = document.createElement("h3");
+    name.textContent = w.title;
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+
+    const download = document.createElement("button");
+    download.textContent = "↓ Download";
+
+    download.onclick = async () => {
+      try {
+        const response = await fetch(w.url);
+        if (!response.ok) throw new Error("Download failed");
+
+        const blob = await response.blob();
+        const objectUrl = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = objectUrl;
+        a.download = w.title.replace(/[^a-z0-9_-]/gi, "-") + ".jpg";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(objectUrl), 1500);
+      } catch (e) {
+        // Fallback for images whose host blocks direct downloads.
+        window.open(w.url, "_blank", "noopener");
+        message.textContent =
+          "Opened the image. If it did not download, press and hold it to save.";
+      }
+    };
+
+    actions.appendChild(download);
+
+    if (w.custom) {
+      const del = document.createElement("button");
+      del.textContent = "Delete";
+      del.className = "delete";
+
+      del.onclick = () => {
+        if (!confirm("Delete this wallpaper?")) return;
+        const index = custom.indexOf(w);
+        if (index !== -1) {
+          const previous = custom.splice(index, 1);
+          if (!save()) custom.splice(index, 0, ...previous);
+          render();
+        }
+      };
+
+      actions.appendChild(del);
+    }
+
+    card.append(img, name, actions);
+    gallery.appendChild(card);
+  });
+}
+
+document.getElementById("categories").addEventListener("click", e => {
+  if (!e.target.matches("button[data-cat]")) return;
+
+  chosen = e.target.dataset.cat;
+
+  document.querySelectorAll(".categories button").forEach(b => {
+    b.classList.toggle("active", b === e.target);
+  });
+
+  render();
 });
-search.addEventListener("input",render);
 
-document.getElementById("add").onclick=()=>{
- const file=document.getElementById("photo").files[0];
- const title=document.getElementById("title").value.trim();
- const category=document.getElementById("category").value;
- if(!file||!title){message.textContent="Choose a picture and enter a name first.";return}
- if(!file.type.startsWith("image/")){message.textContent="Please choose an image.";return}
- if(file.size>2*1024*1024){message.textContent="Please choose an image smaller than 2 MB.";return}
- const reader=new FileReader();
- reader.onload=()=>{
-  custom.push({title,category,url:reader.result,custom:true});
-  save();render();
-  document.getElementById("photo").value="";
-  document.getElementById("title").value="";
-  message.textContent="Wallpaper added on this browser!";
- };
- reader.readAsDataURL(file);
+search.addEventListener("input", render);
+
+document.getElementById("add").onclick = () => {
+  const file = document.getElementById("photo").files[0];
+  const title = document.getElementById("title").value.trim();
+  const category = document.getElementById("category").value;
+
+  if (!file || !title) {
+    message.textContent = "Choose a picture and enter a name first.";
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+    message.textContent = "Please choose an image file.";
+    return;
+  }
+
+  if (file.size > 2 * 1024 * 1024) {
+    message.textContent = "Choose an image smaller than 2 MB.";
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    const wallpaper = {
+      title,
+      category,
+      url: reader.result,
+      custom: true
+    };
+
+    custom.push(wallpaper);
+
+    if (!save()) {
+      custom.pop();
+      return;
+    }
+
+    document.getElementById("photo").value = "";
+    document.getElementById("title").value = "";
+    chosen = "All";
+
+    document.querySelectorAll(".categories button").forEach(b => {
+      b.classList.toggle("active", b.dataset.cat === "All");
+    });
+
+    search.value = "";
+    message.textContent =
+      "Wallpaper added successfully! ✦ It is saved on this browser.";
+    render();
+  };
+
+  reader.onerror = () => {
+    message.textContent = "Could not read that image. Please try again.";
+  };
+
+  reader.readAsDataURL(file);
 };
+
 render();
 </script>
 </body>
